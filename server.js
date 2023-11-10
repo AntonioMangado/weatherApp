@@ -1,6 +1,5 @@
     // Boilerplate docu
     const express = require('express')
-    const bodyParser = require('body-parser');
     const request = require('request');
     const app = express()
 
@@ -9,8 +8,7 @@
     const apiKey = 'faa3edcceb9837b613a9fea7b12034fd';
 
     // Require middleware 
-    
-    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(express.urlencoded({ extended: true }));
     
     // Use EJS engine
     app.set('view engine', 'ejs')
@@ -22,8 +20,9 @@
         res.render('index', {weather: null, error: null});
     })
 
+    // POST http://localhost:3000/
     app.post('/', function (req, res) {
-        let city = req.body.city;
+        let city = req.body.city; //Este es el name del input del formulario
         let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`
 
         request(url, function (err, response, body) {
